@@ -37,30 +37,31 @@
             z-index: 100;
         }
 
+        /* Diseño de la flor que cae */
         .flower {
             position: absolute;
-            background-image: url('https://cdn-icons-png.flaticon.com/512/2926/2926331.png');
+            background-image: url('https://cdn-icons-png.flaticon.com/512/2926/2926331.png'); /* Ícono de flor */
             background-size: contain;
             background-repeat: no-repeat;
-            opacity: 0.6;
+            opacity: 0.7;
             animation: fall linear infinite;
         }
 
         @keyframes fall {
             0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Estilos del Sobre y las Pantallas (Mobile First) */
+        /* Estilos de las Pantallas (Mobile First) */
         .contenedor-pantalla {
             text-align: center;
             background: rgba(255, 255, 255, 0.9);
             padding: 30px 20px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(255, 133, 161, 0.25);
-            max-width: 380px; /* Ajuste perfecto para pantallas de celular */
+            max-width: 380px; 
             width: 88%;
             z-index: 10;
             box-sizing: border-box;
@@ -82,8 +83,8 @@
         #pantalla-carta {
             display: none;
             opacity: 0;
-            max-height: 85vh; /* Evita que se salga del teléfono */
-            overflow-y: auto; /* Permite scroll suave en el texto si el cel es chico */
+            max-height: 85vh; 
+            overflow-y: auto; 
         }
 
         h1, h2 {
@@ -96,10 +97,10 @@
         h1 { font-size: 2.2em; }
         h2 { font-size: 2.4em; }
 
-        /* Icono de sobre grande */
-        .icono-sobre {
-            width: 80px;
-            margin: 15px auto;
+        /* Ícono del ramo principal animado */
+        .icono-ramo {
+            width: 85px;
+            margin: 10px auto;
             display: block;
             animation: float 3s ease-in-out infinite;
         }
@@ -157,7 +158,6 @@
             padding: 0 5px;
         }
 
-        /* Mayor separación entre párrafos */
         .letter-content p {
             margin-bottom: 28px;
         }
@@ -183,12 +183,11 @@
             font-weight: 500;
         }
 
-        /* Estilo para el ramo de flores final */
-        .bouquet-icon {
+        .church-icon {
             display: block;
             margin: 20px auto 5px auto;
-            width: 50px;
-            opacity: 0.8;
+            width: 35px;
+            opacity: 0.5;
         }
     </style>
 </head>
@@ -197,12 +196,13 @@
     <div class="flower-container" id="flower-rain"></div>
 
     <div id="pantalla-bloqueo" class="contenedor-pantalla">
-        <img src="https://cdn-icons-png.flaticon.com/512/2331/2331401.png" class="icono-sobre" alt="sobre cerrado">
+        <img src="https://cdn-icons-png.flaticon.com/512/2926/2926342.png" class="icono-ramo" alt="Ramo de flores">
+        
         <h1>Esta carta es para ti...</h1>
-        <p style="color: var(--texto); font-size: 0.95em; padding: 0 10px;">Por favor, ingresa tu nombre completo para abrir el sobre.</p>
+        <p style="color: var(--texto); font-size: 0.95em; padding: 0 10px;">Por favor, ingresa tu nombre completo para abrirla.</p>
         <input type="text" id="nombre-input" placeholder="Tu nombre completo...">
         <br>
-        <button onclick="verificarNombre()">Abrir sobre 💌</button>
+        <button onclick="verificarNombre()">Abrir 💌</button>
         <p class="error" id="mensaje-error">Ups... me parece que ese no es el nombre correcto.</p>
     </div>
 
@@ -215,7 +215,7 @@
             </p>
             
             <p>
-                No puedo dejar de decirte lo <span class="highlight">hermosa, linda, bonita y increíblemente guapa</span> que eres; tienes una luz propia y una elegancia que resalta a simple vista cada vez que te veo. Pero más allá de lo hermosa que te ves por fuera, lo que realmente me fascina es tu forma de ser, y tengo muchísimas ganas de conocerte más a fondo y descubrir todo lo que guardas en ti.
+                No puedo dejar de decirte lo <span class="highlight">hermosa, linda, bonita e increíblemente guapa</span> que eres; tienes una luz propia y una elegancia que resalta a simple vista cada vez que te veo. Pero más allá de lo hermosa que te ves por fuera, lo que realmente me fascina es tu forma de ser, y tengo muchísimas ganas de conocerte más a fondo y descubrir todo lo que guardas en ti.
             </p>
             
             <p>
@@ -235,12 +235,12 @@
             Con cariño, Lutz
         </div>
         
-        <img src="https://cdn-icons-png.flaticon.com/512/2926/2926342.png" class="bouquet-icon" alt="ramo de flores">
+        <img src="https://cdn-icons-png.flaticon.com/512/2554/2554030.png" class="church-icon" alt="detalle">
     </div>
 
     <script>
         let intervaloFlores;
-        let frecuenciaFlores = 400; // Caen flores relajadas al inicio
+        let frecuenciaFlores = 400; 
 
         function verificarNombre() {
             let input = document.getElementById('nombre-input').value.toLowerCase().trim();
@@ -248,20 +248,18 @@
             
             if (input === nombreCorrecto || input.includes("adriana") || input.includes("adriana michel")) {
                 
-                // 1. Ocultar la pantalla de bloqueo de forma suave
                 let bloqueo = document.getElementById('pantalla-bloqueo');
                 bloqueo.style.opacity = "0";
                 
-                // 2. Desatar una EXPLOSIÓN masiva de flores de inmediato
+                // Explosión de flores al abrir
                 for(let i = 0; i < 35; i++) {
                     setTimeout(createFlower, i * 40); 
                 }
 
-                // 3. Aumentar de forma permanente la tormenta de flores de fondo
+                // Aumentar la tormenta de flores
                 clearInterval(intervaloFlores);
                 intervaloFlores = setInterval(createFlower, 60);
 
-                // 4. Mostrar la carta abierta
                 setTimeout(() => {
                     bloqueo.style.display = "none";
                     let carta = document.getElementById('pantalla-carta');
@@ -276,19 +274,19 @@
             }
         }
 
-        // Creador de lluvia de flores de DIFERENTES COLORES
+        // Función que crea las flores de colores
         function createFlower() {
             const container = document.getElementById('flower-rain');
             const flower = document.createElement('div');
             flower.classList.add('flower');
             
             const startX = Math.random() * window.innerWidth;
-            const size = Math.random() * (22 - 14) + 14; 
-            const duration = Math.random() * (6 - 4) + 4; 
+            const size = Math.random() * (24 - 15) + 15; 
+            const duration = Math.random() * (7 - 4) + 4; 
             
-            // TRUCO DE COLOR: Cambia el tono de la flor aleatoriamente en toda la gama de colores
+            // TRUCO DE COLOR: Cambia el color base de la flor
             const colorRandom = Math.floor(Math.random() * 360);
-            flower.style.filter = `hue-rotate(${colorRandom}deg)`;
+            flower.style.filter = `hue-rotate(${colorRandom}deg) drop-shadow(0px 0px 2px rgba(255,255,255,0.5))`;
             
             flower.style.left = startX + 'px';
             flower.style.width = size + 'px';
@@ -297,12 +295,13 @@
             
             container.appendChild(flower);
 
+            // Se elimina la flor para no gastar memoria del teléfono
             setTimeout(() => {
                 flower.remove();
             }, duration * 1000);
         }
 
-        // Iniciar con lluvia de flores suave
+        // Inicia la lluvia suave 
         intervaloFlores = setInterval(createFlower, frecuenciaFlores);
     </script>
 </body>

@@ -37,38 +37,39 @@
             z-index: 100;
         }
 
-        /* Diseño de la flor que cae con Emojis */
         .flower {
             position: absolute;
-            font-size: 1.8em;
-            opacity: 0.8;
-            animation: fall linear infinite;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/2926/2926331.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+            animation: fall linear forwards; /* Una sola caída */
         }
 
         @keyframes fall {
             0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Estilos de las Pantallas (Mobile First) */
+        /* Contenedores Principales y Responsive */
         .contenedor-pantalla {
             text-align: center;
             background: rgba(255, 255, 255, 0.9);
-            padding: 30px 20px;
+            padding: 25px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 133, 161, 0.25);
-            max-width: 380px; 
-            width: 88%;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 133, 161, 0.4);
+            max-width: 400px;
+            width: 85%;
             z-index: 10;
             box-sizing: border-box;
-            border: 1px solid white;
             transition: all 0.5s ease-in-out;
             position: relative;
         }
 
-        /* Marco elegante interior */
+        /* Marco interior elegante */
         .contenedor-pantalla::before {
             content: "";
             position: absolute;
@@ -78,86 +79,77 @@
             pointer-events: none;
         }
 
-        #pantalla-carta {
+        #pantalla-carta, #pantalla-poema {
             display: none;
             opacity: 0;
-            max-height: 85vh; 
-            overflow-y: auto; 
+            max-height: 90vh; /* No más alta que la pantalla */
+            overflow-y: auto; /* Scroll suave si el texto es largo en móvil */
         }
 
-        h1, h2 {
+        #pantalla-exito {
+            display: none;
+            opacity: 0;
+        }
+
+        h1, h2, #pregunta-final, .texto-ramo-final {
             font-family: 'Dancing Script', cursive;
-            color: var(--rosa-fuerte);
-            margin-top: 10px;
+            font-weight: 700;
+            color: #dda0dd;
             margin-bottom: 15px;
-        }
-        
-        h1 { font-size: 2.2em; }
-        h2 { font-size: 2.4em; }
-
-        /* Ícono del ramo principal animado con Emoji */
-        .icono-ramo {
-            font-size: 4.5em;
-            margin: 0px auto 10px auto;
-            display: block;
-            animation: float 3s ease-in-out infinite;
+            font-size: 2.2em;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        #pregunta-final {
+            color: var(--rosa-fuerte);
+            font-size: 1.8em;
+            margin-top: 30px;
         }
+
+        h2 { color: #4b0082; }
 
         input {
-            padding: 14px;
+            padding: 12px;
             width: 90%;
             border-radius: 25px;
-            border: 2px solid var(--rosa-suave);
+            border: none;
             outline: none;
             font-size: 1em;
             text-align: center;
             margin-bottom: 15px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-            font-family: 'Poppins', sans-serif;
-            box-sizing: border-box;
-        }
-
-        input:focus {
-            border-color: var(--rosa-fuerte);
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
         }
 
         button {
             padding: 12px 35px;
             border-radius: 25px;
             border: none;
-            background-color: var(--rosa-fuerte);
             color: white;
             font-weight: bold;
             font-size: 1.1em;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 4px 8px rgba(255, 133, 161, 0.4);
-            width: 90%;
-            box-sizing: border-box;
+            margin: 5px;
         }
 
-        button:active {
-            transform: scale(0.98);
+        #btn-desbloquear, #btn-si {
+            background-color: var(--rosa-fuerte);
+        }
+
+        #btn-desbloquear:hover, #btn-si:hover {
             background-color: #ff69b4;
+            transform: scale(1.05);
         }
 
-        /* Estilo de la carta formal */
-        .letter-content {
-            font-family: 'Playfair Display', serif;
-            color: var(--texto);
-            line-height: 1.8;
-            font-size: 1.02em;
+        #btn-no {
+            background-color: #777;
+            position: relative;
+        }
+
+        p {
+            font-size: 1em;
+            line-height: 1.6;
             text-align: justify;
-            padding: 0 5px;
-        }
-
-        .letter-content p {
-            margin-bottom: 28px;
+            margin-bottom: 15px;
         }
 
         .highlight {
@@ -178,14 +170,89 @@
             font-size: 0.9em;
             margin-top: 10px;
             display: none;
-            font-weight: 500;
         }
 
-        .church-icon {
-            font-size: 2.5em;
-            display: block;
-            margin: 20px auto 5px auto;
-            opacity: 0.6;
+        #contenedor-botones {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        #mensaje-no-error {
+            color: var(--rosa-fuerte); 
+            font-weight: bold; 
+            text-align: center; 
+            margin-top: 15px;
+            min-height: 20px;
+        }
+
+        /* Estilos para el embedded sobre (Libro de Poemas) */
+        #embeddedSobre {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--rosa-suave);
+            border-radius: 15px;
+            margin: 25px auto 10px auto;
+            padding: 15px;
+            width: 80%;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(255, 133, 161, 0.2);
+            transition: transform 0.2s;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            color: var(--texto);
+        }
+        #embeddedSobre:hover {
+            transform: scale(1.02);
+        }
+        .abrePoemas {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--rosa-fuerte);
+            margin-bottom: 10px;
+        }
+        .poemasSub {
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        /* Contenedor del Libro de Poemas (Paginado) */
+        .pauta-poema-container {
+            font-style: italic;
+            color: #4b0082;
+            text-align: center;
+            padding: 15px;
+            background: #fff;
+            border-radius: 15px;
+            border: 1px solid var(--rosa-suave);
+            min-height: 180px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+        }
+
+        .btn-nav-poema {
+            background: none;
+            color: var(--rosa-fuerte);
+            font-size: 1.5em;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        .btn-nav-poema:hover {
+            transform: scale(1.2);
+        }
+        .poema-nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        #nav-prev {
+            visibility: hidden; /* Ocultar al inicio */
         }
     </style>
 </head>
@@ -194,117 +261,221 @@
     <div class="flower-container" id="flower-rain"></div>
 
     <div id="pantalla-bloqueo" class="contenedor-pantalla">
-        <div class="icono-ramo">💐</div>
-        
-        <h1>Esta carta es para ti...</h1>
-        <p style="color: var(--texto); font-size: 0.95em; padding: 0 10px;">Por favor, ingresa tu nombre completo para abrirla.</p>
+        <h1>Una sorpresa...💐</h1>
+        <p>Este detalle está protegido. Por favor, ingresa tu nombre completo para abrir el sobre.</p>
         <input type="text" id="nombre-input" placeholder="Tu nombre completo...">
         <br>
-        <button onclick="verificarNombre()">Abrir 💌</button>
+        <button id="btn-desbloquear" onclick="verificarNombre()">Desbloquear 💌</button>
         <p class="error" id="mensaje-error">Ups... me parece que ese no es el nombre correcto.</p>
     </div>
 
     <div id="pantalla-carta" class="contenedor-pantalla">
         <h2>Para Adriana</h2>
         
-        <div class="letter-content">
-            <p>
-                A veces, las palabras habladas se quedan cortas ante la curiosidad que me despierta conocer a alguien como tú. Quise usar mi pasión por la programación para crear este pequeño espacio, tan único como lo que he empezado a notar en ti.
-            </p>
-            
-            <p>
-                No puedo dejar de decirte lo <span class="highlight">hermosa, linda, bonita e increíblemente guapa</span> que eres; tienes una luz propia y una elegancia que resalta a simple vista cada vez que te veo. Pero más allá de lo hermosa que te ves por fuera, lo que realmente me fascina es tu forma de ser, y tengo muchísimas ganas de conocerte más a fondo y descubrir todo lo que guardas en ti.
-            </p>
-            
-            <p>
-                He guardado con mucho cariño los recuerdos de estos días: desde nuestra cena en <span class="highlight">Cocoroti</span> y ese sushi que no terminaste, hasta nuestra plática en el parque. Incluso el camino a <span class="highlight">San Carlos</span>, donde el silencio me permitió apreciar tu presencia, y ese momento en la orilla del mar donde, a pesar del pequeño accidente en mi dedo, solo me importaba que tú estuvieras bien.
-            </p>
-            
-            <p>
-                Admiro tu disciplina por el crecimiento personal. Me fascina que te guste aprender para tener más conocimiento y salud, ya sea yendo al gym, corriendo, leyendo, probando peinados nuevos o escuchando podcasts de autoanálisis. Me encanta que te cause tanta satisfacción alistarte y verte bonita, aunque para mí, ya destacas por ti misma de una manera muy especial.
-            </p>
-            
-            <p>
-                También respeto muchísimo esa paz que buscas y la profunda satisfacción que te causa ir a la iglesia, especialmente a la <span class="highlight">Hora Santa</span>. 
-            </p>
-            
-            <p>
-                Sé que eres reservada, y respeto mucho ese espacio tuyo. No pretendo apresurar nada, solo quiero que sepas que me interesa de verdad quién eres, qué piensas y hacia dónde vas. Me encantaría que me dieras la oportunidad de seguir compartiendo momentos juntos.
-            </p>
-        </div>
+        <p>No puedo dejar de decirte lo <span class="highlight">hermosa, linda, bonita y increíblemente guapa</span> que eres; tienes una luz propia y una elegancia que resalta a simple vista cada vez que te veo. Pero más allá de lo hermosa que te ves por fuera, lo que realmente me fascina es tu forma de ser y tengo muchísimas ganas de conocerte más a fondo, mucho más.</p>
 
-        <div class="footer">
-            Con cariño, Lutz
+        <p>He guardado con mucho cariño los recuerdos de estos días: desde nuestra cena en <span class="highlight">Cocoroti</span> y ese sushi que no terminaste, hasta nuestra plática en el parque. Incluso el camino a <span class="highlight">San Carlos</span>, donde el silencio me permitió apreciar tu presencia, y ese momento en la orilla del mar donde, a pesar del pequeño accidente en mi dedo, solo me importaba que tú estuvieras bien. Sentí una química muy bonita que no quisiera dejar ir.</p>
+
+        <hr style="border: 0; border-top: 1px solid var(--rosa-suave); margin-bottom: 25px;">
+        
+        <p>Admiro mucho tu disciplina por el crecimiento personal y tu amor por la lectura. Me parece hermoso cómo disfrutas el ritual de alistarte y verte bonita para ir al gym, correr, leer, aprender peinados nuevos o escuchar podcasts de autoanálisis. También respeto muchísimo esa paz que buscas y la profunda satisfacción que te causa ir a la iglesia, especialmente a la <span class="highlight">Hora Santa</span>.</p>
+
+        <p>Quería hacerte este detalle porque tomarme el tiempo para programar una página web desde cero, solo para ti, es mi forma de demostrarte lo mucho que me importas.</p>
+
+        <div id="embeddedSobre" onclick="verPoemas()">
+            <div class="abrePoemas">💌 Abrir sobre de poemas</div>
+            <div class="poemasSub">5 pensamientos para ti (click/touch)</div>
         </div>
         
-        <div class="church-icon">⛪</div>
+        <p id="pregunta-final">¿Me das esa oportunidad para conocernos más?</p>
+        
+        <div id="contenedor-botones">
+            <button id="btn-si" onclick="decirSi()">SÍ</button>
+            <button id="btn-no" onmouseover="moverBotonNo()" onclick="moverBotonNo()">NO</button>
+        </div>
+        <p id="mensaje-no-error"></p>
+    </div>
+
+    <div id="pantalla-poema" class="contenedor-pantalla">
+        <h2>Pensamientos...🌸</h2>
+        <div class="pauta-poema-container">
+            <div id="poema-text"></div>
+        </div>
+        
+        <div class="poema-nav-container">
+            <button id="nav-prev" class="btn-nav-poema" onclick="navegarPoemas(-1)">⬅️</button>
+            <span id="nav-info" style="color:var(--rosa-fuerte); font-weight: bold;"></span>
+            <button id="nav-next" class="btn-nav-poema" onclick="navegarPoemas(1)">➡️</button>
+        </div>
+    </div>
+
+    <div id="pantalla-exito" class="contenedor-pantalla">
+        <h2 style="color: #ff69b4;">¡Me haces muy feliz! ❤️</h2>
+        <p style="text-align: center; font-size: 1.2em;">Gracias por darme esta oportunidad. Prometo que valdrá la pena.<br><br>Nos vemos pronto.</p>
     </div>
 
     <script>
-        let intervaloFlores;
-        let frecuenciaFlores = 400; 
+        // --- LÓGICA DE NIEVE/FLORES ---
+        let intervaloNieve;
+        let frecuenciaNieve = 300; 
 
+        // Solo lluvia al abrir la carta
+        function createFlowerRain() {
+            // Explosión masiva inicial
+            for(let i = 0; i < 35; i++) {
+                setTimeout(createFlower, i * 40); 
+            }
+            
+            // Lluvia constante suave solo mientras se lee
+            intervaloNieve = setInterval(createFlower, frecuenciaNieve);
+        }
+
+        // --- LÓGICA DE DESBLOQUEO ---
         function verificarNombre() {
             let input = document.getElementById('nombre-input').value.toLowerCase().trim();
+            // ¡CAMBIA ESTE NOMBRE SI ES NECESARIO!
             let nombreCorrecto = "adriana michel rodriguez encinas"; 
             
-            if (input === nombreCorrecto || input.includes("adriana") || input.includes("adriana michel")) {
-                
-                let bloqueo = document.getElementById('pantalla-bloqueo');
-                bloqueo.style.opacity = "0";
-                
-                // Explosión de flores al abrir
-                for(let i = 0; i < 35; i++) {
-                    setTimeout(createFlower, i * 40); 
-                }
-
-                // Aumentar la tormenta de flores
-                clearInterval(intervaloFlores);
-                intervaloFlores = setInterval(createFlower, 60);
-
-                setTimeout(() => {
-                    bloqueo.style.display = "none";
-                    let carta = document.getElementById('pantalla-carta');
-                    carta.style.display = "block";
-                    setTimeout(() => {
-                        carta.style.opacity = "1";
-                    }, 50);
-                }, 500);
-
+            if (input === nombreCorrecto || input.includes("adriana michel") || input.includes("adriana")) {
+                transicionPantalla('pantalla-bloqueo', 'pantalla-carta');
+                createFlowerRain(); // Solo aquí comienza la lluvia
             } else {
                 document.getElementById('mensaje-error').style.display = "block";
             }
         }
 
-        // Función que crea las flores de colores con Emojis
+        // --- LÓGICA DE LOS POEMAS (CARRUSEL INTERACTIVO) ---
+        const poemas = [
+            "Con tu luz propia y tu sonrisa,<br>mi corazón va sin prisa.<br>Admiro tu fuerza y tu paz,<br>un ser tan único y capaz.",
+            "Tus ojos reflejan ternura,<br>un oasis de dulzura.<br>Cuidarte es mi mayor deseo,<br>en cada momento te veo.",
+            "Con cariño y suave andar,<br>todo contigo quiero compartir.<br>Desde San Carlos y ese sushi,<br>mi mundo contigo quiero vivir.",
+            "Tu risa, mi dulce canción,<br>despierta mi pasión.<br>Tu ternura, mi refugio fiel,<br>conviertes mi mundo en miel.",
+            "Dame una oportunidad,<br>para conocer tu bondad.<br>Sin prisas, solo ver,<br>lo que juntos podemos ser."
+        ];
+        
+        let poemaActual = 0;
+
+        function actualizarPoema() {
+            document.getElementById('poema-text').innerHTML = poemas[poemaActual];
+            document.getElementById('nav-info').innerText = (poemaActual + 1) + "/5";
+            
+            // Navegación
+            document.getElementById('nav-prev').style.visibility = poemaActual === 0 ? 'hidden' : 'visible';
+            document.getElementById('nav-next').innerText = poemaActual === 4 ? 'Guardar' : '➡️';
+        }
+
+        function navegarPoemas(direccion) {
+            poemaActual += direccion;
+            
+            if (poemaActual < 0) {
+                poemaActual = 0;
+            } else if (poemaActual === 5) {
+                // Auto-save al llegar al 5
+                poemaActual = 0; // Reiniciar
+                transicionPantalla('pantalla-poema', 'pantalla-carta', true); // True para animación de guardar
+            } else {
+                actualizarPoema();
+            }
+        }
+
+        function verPoemas() {
+            transicionPantalla('pantalla-carta', 'pantalla-poema', false); // False para animación de abrir
+            poemaActual = 0;
+            actualizarPoema();
+        }
+
+        // --- LÓGICA DEL BOTÓN NO ---
+        const btnNo = document.getElementById('btn-no');
+        const mensajeNo = document.getElementById('mensaje-no-error');
+        const contenedorBotones = document.getElementById('contenedor-botones');
+
+        function moverBotonNo(e) {
+            // Mismo mecanismo juguetón
+            const width = contenedorBotones.offsetWidth;
+            const height = contenedorBotones.offsetHeight;
+            const btnWidth = btnNo.offsetWidth;
+            const btnHeight = btnNo.offsetHeight;
+
+            const newX = Math.random() * (width - btnWidth);
+            const newY = Math.random() * (height - btnHeight);
+
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = `${newX}px`;
+            btnNo.style.top = `${newY}px`;
+            
+            mensajeNo.style.display = "none";
+        }
+
+        function decirNo() {
+            mensajeNo.innerText = "Creo que te equivocaste... 😉";
+            mensajeNo.style.display = "block";
+            btnNo.style.position = 'relative';
+            btnNo.style.left = '0';
+            btnNo.style.top = '0';
+            btnNo.style.opacity = "0.5"; 
+            setTimeout(()=> mensajeNo.style.display = "none", 3000); 
+        }
+
+        // --- LÓGICA DEL BOTÓN SÍ (FINAL HERMOSO) ---
+        function decirSi() {
+            clearInterval(intervaloNieve); // Detener lluvia suave
+            
+            // Detener el scroll para una lluvia uniforme
+            document.body.style.overflow = "hidden";
+            
+            // Explosión masiva final
+            for(let i = 0; i < 45; i++) {
+                setTimeout(createFlower, i * 35); 
+            }
+            
+            transicionPantalla('pantalla-carta', 'pantalla-exito');
+        }
+
+        // --- UTILIDADES ---
+        function transicionPantalla(idOcultar, idMostrar, esGuardar) {
+            let ocultar = document.getElementById(idOcultar);
+            let mostrar = document.getElementById(idMostrar);
+            
+            // Animación al ocultar
+            ocultar.style.opacity = "0";
+            
+            // Animación para elembedded sobre
+            if (esGuardar !== undefined) {
+                ocultar.style.transform = esGuardar ? 'scale(0.8)' : 'scale(1.2)'; // scale out o scale in
+            }
+            
+            setTimeout(() => {
+                ocultar.style.display = "none";
+                mostrar.style.display = "block";
+                
+                // Reiniciar animación delEmbedded sobre
+                mostrar.style.transform = 'scale(1)'; 
+                
+                setTimeout(() => {
+                    mostrar.style.opacity = "1";
+                }, 50);
+            }, 500);
+        }
+
         function createFlower() {
             const container = document.getElementById('flower-rain');
             const flower = document.createElement('div');
             flower.classList.add('flower');
-            flower.innerHTML = '🌸'; // Emoji de flor nativo
             
-            const startX = Math.random() * window.innerWidth;
-            const size = Math.random() * (1.8 - 1) + 1; // Tamaño de fuente para el emoji
-            const duration = Math.random() * (7 - 4) + 4; 
-            
-            // TRUCO DE COLOR: Cambia el tono del emoji
+            // Color aleatorio
             const colorRandom = Math.floor(Math.random() * 360);
             flower.style.filter = `hue-rotate(${colorRandom}deg)`;
             
-            flower.style.left = startX + 'px';
-            flower.style.fontSize = size + 'em';
-            flower.style.animationDuration = duration + 's';
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.animationDuration = Math.random() * 3 + 4 + 's'; 
+            flower.style.fontSize = Math.random() * 10 + 10 + 'px';
             
-            container.appendChild(flower);
+            document.body.appendChild(flower);
 
-            // Se elimina la flor para no gastar memoria del teléfono
             setTimeout(() => {
                 flower.remove();
-            }, duration * 1000);
+            }, 7000); // Darle tiempo para caer
         }
-
-        // Inicia la lluvia suave 
-        intervaloFlores = setInterval(createFlower, frecuenciaFlores);
     </script>
 </body>
 </html>

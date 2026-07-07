@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Adriana</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
             --rosa-fuerte: #ff85a1;
@@ -20,13 +20,13 @@
             height: 100%;
             font-family: 'Poppins', sans-serif;
             background-color: var(--rosa-fondo);
-            overflow-x: hidden;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Lluvia de flores */
+        /* Contenedor de lluvia de flores */
         .flower-container {
             position: fixed;
             top: 0;
@@ -34,12 +34,12 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 100;
         }
 
         .flower {
             position: absolute;
-            background-image: url('https://cdn-icons-png.flaticon.com/512/2926/2926331.png'); /* Icono de flor suave */
+            background-image: url('https://cdn-icons-png.flaticon.com/512/2926/2926331.png');
             background-size: contain;
             background-repeat: no-repeat;
             opacity: 0.6;
@@ -47,53 +47,118 @@
         }
 
         @keyframes fall {
-            0% { transform: translateY(-10%) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
             10% { opacity: 0.7; }
             90% { opacity: 0.7; }
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Tarjeta de la carta */
-        .card {
-            background: rgba(255, 255, 255, 0.9);
-            max-width: 600px;
-            width: 90%;
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(255, 133, 161, 0.2);
-            position: relative;
-            z-index: 2;
-            border: 1px solid white;
+        /* Estilos del Sobre y las Pantallas (Mobile First) */
+        .contenedor-pantalla {
             text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 133, 161, 0.25);
+            max-width: 380px; /* Ajuste perfecto para pantallas de celular */
+            width: 88%;
+            z-index: 10;
             box-sizing: border-box;
+            border: 1px solid white;
+            transition: all 0.5s ease-in-out;
+            position: relative;
         }
 
-        .card::before {
+        /* Marco elegante interior */
+        .contenedor-pantalla::before {
             content: "";
             position: absolute;
-            top: 15px; bottom: 15px; left: 15px; right: 15px;
+            top: 10px; bottom: 10px; left: 10px; right: 10px;
             border: 1px solid var(--rosa-suave);
-            border-radius: 10px;
+            border-radius: 15px;
             pointer-events: none;
         }
 
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            color: var(--rosa-fuerte);
-            font-size: 2.8em;
-            margin-bottom: 20px;
+        #pantalla-carta {
+            display: none;
+            opacity: 0;
+            max-height: 85vh; /* Evita que se salga del teléfono */
+            overflow-y: auto; /* Permite scroll suave en el texto si el cel es chico */
         }
 
+        h1, h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--rosa-fuerte);
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        h1 { font-size: 2.2em; }
+        h2 { font-size: 2.4em; }
+
+        /* Icono de sobre grande */
+        .icono-sobre {
+            width: 80px;
+            margin: 15px auto;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        input {
+            padding: 14px;
+            width: 90%;
+            border-radius: 25px;
+            border: 2px solid var(--rosa-suave);
+            outline: none;
+            font-size: 1em;
+            text-align: center;
+            margin-bottom: 15px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            border-color: var(--rosa-fuerte);
+        }
+
+        button {
+            padding: 12px 35px;
+            border-radius: 25px;
+            border: none;
+            background-color: var(--rosa-fuerte);
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(255, 133, 161, 0.4);
+            width: 90%;
+            box-sizing: border-box;
+        }
+
+        button:active {
+            transform: scale(0.98);
+            background-color: #ff69b4;
+        }
+
+        /* Estilo de la carta formal */
         .letter-content {
             font-family: 'Playfair Display', serif;
             color: var(--texto);
-            line-height: 1.8;
-            font-size: 1.1em;
+            line-height: 1.7;
+            font-size: 1.02em;
             text-align: justify;
+            padding: 0 5px;
         }
 
         .letter-content p {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .highlight {
@@ -103,24 +168,25 @@
         }
 
         .footer {
-            margin-top: 40px;
+            margin-top: 30px;
             font-family: 'Dancing Script', cursive;
-            font-size: 1.8em;
+            font-size: 2em;
             color: var(--rosa-fuerte);
+        }
+
+        .error {
+            color: #d90429;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: none;
+            font-weight: 500;
         }
 
         .church-icon {
             display: block;
-            margin: 20px auto;
-            width: 30px;
-            opacity: 0.5;
-        }
-
-        /* Ajustes para móviles */
-        @media (max-width: 480px) {
-            .card { padding: 30px 20px; }
-            h1 { font-size: 2.2em; }
-            .letter-content { font-size: 1em; }
+            margin: 15px auto 0 auto;
+            width: 25px;
+            opacity: 0.4;
         }
     </style>
 </head>
@@ -128,8 +194,18 @@
 
     <div class="flower-container" id="flower-rain"></div>
 
-    <div class="card">
-        <h1>Para Adriana</h1>
+    <div id="pantalla-bloqueo" class="contenedor-pantalla">
+        <img src="https://cdn-icons-png.flaticon.com/512/2331/2331401.png" class="icono-sobre" alt="sobre cerrado">
+        <h1>Esta carta es para ti...</h1>
+        <p style="color: var(--texto); font-size: 0.95em; padding: 0 10px;">Por favor, ingresa tu nombre completo para abrir el sobre.</p>
+        <input type="text" id="nombre-input" placeholder="Tu nombre completo...">
+        <br>
+        <button onclick="verificarNombre()">Abrir sobre 💌</button>
+        <p class="error" id="mensaje-error">Ups... me parece que ese no es el nombre correcto.</p>
+    </div>
+
+    <div id="pantalla-carta" class="contenedor-pantalla">
+        <h2>Para Adriana</h2>
         
         <div class="letter-content">
             <p>
@@ -154,16 +230,53 @@
     </div>
 
     <script>
-        // Función para crear lluvia de flores
+        let intervaloFlores;
+        let frecuenciaFlores = 400; // Caen flores relajadas al inicio
+
+        function verificarNombre() {
+            let input = document.getElementById('nombre-input').value.toLowerCase().trim();
+            // Sistema busca si el input contiene "adriana" o coincide con su nombre completo
+            let nombreCorrecto = "adriana michel rodriguez encinas"; 
+            
+            if (input === nombreCorrecto || input.includes("adriana") || input.includes("adriana michel")) {
+                
+                // 1. Ocultar la pantalla de bloqueo de forma suave
+                let bloqueo = document.getElementById('pantalla-bloqueo');
+                bloqueo.style.opacity = "0";
+                
+                // 2. Desatar una EXPLOSIÓN masiva de flores de inmediato
+                for(let i = 0; i < 35; i++) {
+                    setTimeout(createFlower, i * 40); 
+                }
+
+                // 3. Aumentar de forma permanente la tormenta de flores de fondo
+                clearInterval(intervaloFlores);
+                intervaloFlores = setInterval(createFlower, 60);
+
+                // 4. Mostrar la carta abierta
+                setTimeout(() => {
+                    bloqueo.style.display = "none";
+                    let carta = document.getElementById('pantalla-carta');
+                    carta.style.display = "block";
+                    setTimeout(() => {
+                        carta.style.opacity = "1";
+                    }, 50);
+                }, 500);
+
+            } else {
+                document.getElementById('mensaje-error').style.display = "block";
+            }
+        }
+
+        // Creador de lluvia de flores
         function createFlower() {
             const container = document.getElementById('flower-rain');
             const flower = document.createElement('div');
             flower.classList.add('flower');
             
-            // Posición aleatoria
             const startX = Math.random() * window.innerWidth;
-            const size = Math.random() * (25 - 15) + 15; // Tamaño entre 15 y 25px
-            const duration = Math.random() * (7 - 4) + 4; // Duración entre 4 y 7 segundos
+            const size = Math.random() * (22 - 14) + 14; // Tamaños ideales para no saturar móviles
+            const duration = Math.random() * (6 - 4) + 4; 
             
             flower.style.left = startX + 'px';
             flower.style.width = size + 'px';
@@ -172,14 +285,13 @@
             
             container.appendChild(flower);
 
-            // Eliminar flor después de la animación
             setTimeout(() => {
                 flower.remove();
             }, duration * 1000);
         }
 
-        // Crear una flor cada 300ms
-        setInterval(createFlower, 300);
+        // Iniciar con lluvia de flores suave
+        intervaloFlores = setInterval(createFlower, frecuenciaFlores);
     </script>
 </body>
 </html>

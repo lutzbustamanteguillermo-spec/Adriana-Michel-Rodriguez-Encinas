@@ -40,7 +40,6 @@
             z-index: 100;
         }
 
-        /* Diseño de la flor que cae con Emojis */
         .flower {
             position: absolute;
             opacity: 0.8;
@@ -48,23 +47,10 @@
         }
 
         @keyframes fall {
-            0% {
-                transform: translateY(-10vh) rotate(0deg);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 0.8;
-            }
-
-            90% {
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translateY(110vh) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
         /* Estilos de las Pantallas (Mobile First) */
@@ -83,21 +69,18 @@
             position: relative;
         }
 
-        /* Marco elegante interior */
         .contenedor-pantalla::before {
             content: "";
             position: absolute;
-            top: 10px;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
+            top: 10px; bottom: 10px; left: 10px; right: 10px;
             border: 1px solid var(--rosa-suave);
             border-radius: 15px;
             pointer-events: none;
         }
 
         #pantalla-carta,
-        #pantalla-poema {
+        #pantalla-poema,
+        #pantalla-poema-largo {
             display: none;
             opacity: 0;
             max-height: 85vh;
@@ -109,10 +92,7 @@
             opacity: 0;
         }
 
-        h1,
-        h2,
-        #pregunta-final,
-        .texto-ramo-final {
+        h1, h2, #pregunta-final, .texto-ramo-final {
             font-family: 'Dancing Script', cursive;
             font-weight: 700;
             color: #dda0dd;
@@ -126,9 +106,7 @@
             margin-top: 30px;
         }
 
-        h2 {
-            color: #4b0082;
-        }
+        h2 { color: #4b0082; }
 
         .icono-ramo {
             font-size: 4.5em;
@@ -138,15 +116,8 @@
         }
 
         @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         input {
@@ -163,9 +134,7 @@
             box-sizing: border-box;
         }
 
-        input:focus {
-            border-color: var(--rosa-fuerte);
-        }
+        input:focus { border-color: var(--rosa-fuerte); }
 
         button {
             padding: 12px 35px;
@@ -196,9 +165,7 @@
             padding: 0 5px;
         }
 
-        .letter-content p {
-            margin-bottom: 28px;
-        }
+        .letter-content p { margin-bottom: 28px; }
 
         .highlight {
             color: var(--rosa-fuerte);
@@ -235,31 +202,37 @@
             transition: top 0.2s ease, left 0.2s ease;
         }
 
-        /* Estilos para el embedded sobre (Libro de Poemas) */
-        #embeddedSobre {
+        /* Estilos para los 2 sobres interactivos */
+        .contenedor-sobres {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 25px auto 15px auto;
+        }
+
+        .sobre-interactivo {
             background: rgba(255, 255, 255, 0.9);
             border: 2px solid var(--rosa-suave);
             border-radius: 15px;
-            margin: 25px auto 10px auto;
             padding: 15px;
-            width: 80%;
+            width: 90%;
+            margin: 0 auto;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(255, 133, 161, 0.2);
             transition: transform 0.2s;
             text-align: center;
             font-family: 'Poppins', sans-serif;
             color: var(--texto);
+            box-sizing: border-box;
         }
 
-        #embeddedSobre:hover {
-            transform: scale(1.02);
-        }
+        .sobre-interactivo:hover { transform: scale(1.03); }
 
         .abrePoemas {
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: 600;
             color: var(--rosa-fuerte);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .poemasSub {
@@ -282,6 +255,24 @@
             align-items: center;
             justify-content: center;
             font-size: 1.1em;
+        }
+
+        /* Contenedor específico para los poemas largos */
+        .pauta-poema-largo-container {
+            font-family: 'Playfair Display', serif;
+            color: var(--texto);
+            text-align: center;
+            padding: 20px 15px;
+            background: #fff;
+            border-radius: 15px;
+            border: 1px solid var(--rosa-suave);
+            min-height: 250px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+            line-height: 1.8;
         }
 
         .btn-nav-poema {
@@ -307,29 +298,24 @@
             margin-top: 20px;
         }
 
-        #nav-prev {
-            visibility: hidden;
-        }
+        .nav-prev-oculto { visibility: hidden; }
 
-        /* ESTILO PARA LA FIRMA ANIMADA */
+        /* ESTILO PARA LA FIRMA ANIMADA EN BUCLE */
         .footer {
             margin-top: 35px;
             font-family: 'Dancing Script', cursive;
             font-size: 2.2em;
             color: var(--rosa-fuerte);
-            min-height: 45px; /* Para que el espacio no brinque al escribirse */
+            min-height: 45px;
         }
 
-        /* El cursor parpadeante */
         .escribiendo::after {
             content: '|';
-            animation: blink 1s step-end infinite;
+            animation: blink 0.8s step-end infinite;
             color: var(--rosa-suave);
         }
 
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
+        @keyframes blink { 50% { opacity: 0; } }
 
     </style>
 </head>
@@ -341,8 +327,7 @@
     <div id="pantalla-bloqueo" class="contenedor-pantalla">
         <div class="icono-ramo">💐</div>
         <h1>Esta carta es para ti...</h1>
-        <p style="color: var(--texto); font-size: 0.95em; padding: 0 10px;">Por favor, ingresa tu nombre completo para
-            abrir el sobre.</p>
+        <p style="color: var(--texto); font-size: 0.95em; padding: 0 10px;">Por favor, ingresa tu nombre completo para abrir el sobre.</p>
         <input type="text" id="nombre-input" placeholder="Tu nombre completo...">
         <br>
         <button id="btn-desbloquear" onclick="verificarNombre()">Abrir 💌</button>
@@ -353,32 +338,27 @@
         <h2>Para Adriana</h2>
 
         <div class="letter-content">
-            <p>No puedo dejar de decirte lo <span class="highlight">hermosa, linda, bonita y increíblemente guapa</span>
-                que eres; tienes una luz propia y una elegancia que resalta a simple vista cada vez que te veo. Pero más
-                allá de lo hermosa que te ves por fuera, lo que realmente me fascina es tu forma de ser y tengo
-                muchísimas ganas de conocerte más a fondo, mucho más.</p>
+            <p>No puedo dejar de decirte lo <span class="highlight">hermosa, linda, bonita e increíblemente guapa</span> que eres; tienes una luz propia y una elegancia que resalta a simple vista cada vez que te veo. Pero más allá de lo hermosa que te ves por fuera, lo que realmente me fascina es tu forma de ser y tengo muchísimas ganas de conocerte más a fondo, mucho más.</p>
 
-            <p>He guardado con mucho cariño los recuerdos de estos días: desde nuestra cena en <span
-                    class="highlight">Cocoroti</span> y ese sushi que no terminaste, hasta nuestra plática en el parque.
-                Incluso el camino a <span class="highlight">San Carlos</span>, donde el silencio me permitió apreciar tu
-                presencia, y ese momento en la orilla del mar donde, a pesar del pequeño accidente en mi dedo, solo me
-                importaba que tú estuvieras bien. Sentí una química muy bonita que no quisiera dejar ir.</p>
+            <p>He guardado con mucho cariño los recuerdos de estos días: desde nuestra cena en <span class="highlight">Cocoroti</span> y ese sushi que no terminaste, hasta nuestra plática en el parque. Incluso el camino a <span class="highlight">San Carlos</span>, donde el silencio me permitió apreciar tu presencia, y ese momento en la orilla del mar donde, a pesar del pequeño accidente en mi dedo, solo me importaba que tú estuvieras bien. Sentí una química muy bonita que no quisiera dejar ir.</p>
 
             <hr style="border: 0; border-top: 1px solid var(--rosa-suave); margin-bottom: 25px;">
 
-            <p>Admiro mucho tu disciplina por el crecimiento personal y tu amor por la lectura. Me parece hermoso cómo
-                disfrutas el ritual de alistarte y verte bonita para ir al gym, correr, leer, aprender peinados nuevos o
-                escuchar podcasts de autoanálisis. También respeto muchísimo esa paz que buscas y la profunda
-                satisfacción que te causa ir a la iglesia, especialmente a la <span class="highlight">Hora Santa</span>.
-            </p>
+            <p>Admiro mucho tu disciplina por el crecimiento personal y tu amor por la lectura. Me parece hermoso cómo disfrutas el ritual de alistarte y verte bonita para ir al gym, correr, leer, aprender peinados nuevos o escuchar podcasts de autoanálisis. También respeto muchísimo esa paz que buscas y la profunda satisfacción que te causa ir a la iglesia, especialmente a la <span class="highlight">Hora Santa</span>.</p>
 
-            <p>Quería hacerte este detalle porque tomarme el tiempo para programar una página web desde cero, solo para
-                ti, es mi forma de demostrarte lo mucho que me importas.</p>
+            <p>Quería hacerte este detalle porque tomarme el tiempo para programar una página web desde cero, solo para ti, es mi forma de demostrarte lo mucho que me importas.</p>
         </div>
 
-        <div id="embeddedSobre" onclick="verPoemas()">
-            <div class="abrePoemas">💌 Abrir sobre de poemas</div>
-            <div class="poemasSub">5 pensamientos para ti</div>
+        <div class="contenedor-sobres">
+            <div class="sobre-interactivo" onclick="verPoemasCortos()">
+                <div class="abrePoemas">💌 Abrir sobre de poemas</div>
+                <div class="poemasSub">5 pensamientos cortos para ti</div>
+            </div>
+            
+            <div class="sobre-interactivo" onclick="verPoemasLargos()">
+                <div class="abrePoemas">✨ Lo que te gusta</div>
+                <div class="poemasSub">3 poemas para tu alma</div>
+            </div>
         </div>
 
         <p id="pregunta-final">¿Me das esa oportunidad para conocernos más?</p>
@@ -399,16 +379,28 @@
         </div>
 
         <div class="poema-nav-container">
-            <button id="nav-prev" class="btn-nav-poema" onclick="navegarPoemas(-1)">⬅️</button>
+            <button id="nav-prev" class="btn-nav-poema nav-prev-oculto" onclick="navegarPoemasCortos(-1)">⬅️</button>
             <span id="nav-info" style="color:var(--rosa-fuerte); font-weight: bold;"></span>
-            <button id="nav-next" class="btn-nav-poema" onclick="navegarPoemas(1)">➡️</button>
+            <button id="nav-next" class="btn-nav-poema" onclick="navegarPoemasCortos(1)">➡️</button>
+        </div>
+    </div>
+
+    <div id="pantalla-poema-largo" class="contenedor-pantalla">
+        <h2>Para tu alma...✨</h2>
+        <div class="pauta-poema-largo-container">
+            <div id="poema-largo-text"></div>
+        </div>
+
+        <div class="poema-nav-container">
+            <button id="nav-prev-largo" class="btn-nav-poema nav-prev-oculto" onclick="navegarPoemasLargos(-1)">⬅️</button>
+            <span id="nav-info-largo" style="color:var(--rosa-fuerte); font-weight: bold;"></span>
+            <button id="nav-next-largo" class="btn-nav-poema" onclick="navegarPoemasLargos(1)">➡️</button>
         </div>
     </div>
 
     <div id="pantalla-exito" class="contenedor-pantalla">
         <h2 style="color: #ff69b4; font-size: 2.8em;">¡Sabía que ibas a decir que sí! ❤️</h2>
-        <p style="text-align: center; font-size: 1.2em;">Igual no te iba a dejar seleccionar que no,
-            jajaja.<br><br>Gracias por darme esta oportunidad. Prometo que valdrá la pena.<br><br>Nos vemos pronto.</p>
+        <p style="text-align: center; font-size: 1.2em;">Igual no te iba a dejar seleccionar que no, jajaja.<br><br>Gracias por darme esta oportunidad. Prometo que valdrá la pena.<br><br>Nos vemos pronto.</p>
     </div>
 
     <script>
@@ -417,12 +409,9 @@
         let frecuenciaNieve = 300;
 
         function createFlowerRain() {
-            // Explosión masiva inicial
             for (let i = 0; i < 35; i++) {
                 setTimeout(createFlower, i * 40);
             }
-
-            // Lluvia constante suave
             intervaloNieve = setInterval(createFlower, frecuenciaNieve);
         }
 
@@ -435,7 +424,7 @@
                 transicionPantalla('pantalla-bloqueo', 'pantalla-carta');
                 createFlowerRain();
                 
-                // Activar el espía (Observer) para saber cuándo iniciar la firma
+                // Activar el espía para la firma infinita
                 setTimeout(() => {
                     observadorFirma.observe(document.getElementById("firma-animada"));
                 }, 1000);
@@ -445,8 +434,8 @@
             }
         }
 
-        // --- LÓGICA DE LOS POEMAS ---
-        const poemas = [
+        // --- 1. LÓGICA POEMAS CORTOS ---
+        const poemasCortos = [
             "Con tu luz propia y tu sonrisa,<br>mi corazón va sin prisa.<br>Admiro tu fuerza y tu paz,<br>un ser tan único y capaz.",
             "Tus ojos reflejan ternura,<br>un oasis de dulzura.<br>Cuidarte es mi mayor deseo,<br>en cada momento te veo.",
             "Con cariño y suave andar,<br>todo contigo quiero compartir.<br>Desde San Carlos y ese sushi,<br>mi mundo contigo quiero vivir.",
@@ -454,36 +443,70 @@
             "Dame una oportunidad,<br>para conocer tu bondad.<br>Sin prisas, solo ver,<br>lo que juntos podemos ser."
         ];
 
-        let poemaActual = 0;
+        let indexPoemaCorto = 0;
 
-        function actualizarPoema() {
-            document.getElementById('poema-text').innerHTML = poemas[poemaActual];
-            document.getElementById('nav-info').innerText = (poemaActual + 1) + "/5";
+        function actualizarPoemaCorto() {
+            document.getElementById('poema-text').innerHTML = poemasCortos[indexPoemaCorto];
+            document.getElementById('nav-info').innerText = (indexPoemaCorto + 1) + "/5";
 
-            document.getElementById('nav-prev').style.visibility = poemaActual === 0 ? 'hidden' : 'visible';
-            document.getElementById('nav-next').innerText = poemaActual === 4 ? 'Guardar' : '➡️';
+            document.getElementById('nav-prev').style.visibility = indexPoemaCorto === 0 ? 'hidden' : 'visible';
+            document.getElementById('nav-next').innerText = indexPoemaCorto === 4 ? 'Guardar' : '➡️';
         }
 
-        function navegarPoemas(direccion) {
-            poemaActual += direccion;
-
-            if (poemaActual < 0) {
-                poemaActual = 0;
-            } else if (poemaActual === 5) {
-                poemaActual = 0;
+        function navegarPoemasCortos(direccion) {
+            indexPoemaCorto += direccion;
+            if (indexPoemaCorto < 0) indexPoemaCorto = 0;
+            else if (indexPoemaCorto === 5) {
+                indexPoemaCorto = 0;
                 transicionPantalla('pantalla-poema', 'pantalla-carta', true);
             } else {
-                actualizarPoema();
+                actualizarPoemaCorto();
             }
         }
 
-        function verPoemas() {
+        function verPoemasCortos() {
             transicionPantalla('pantalla-carta', 'pantalla-poema', false);
-            poemaActual = 0;
-            actualizarPoema();
+            indexPoemaCorto = 0;
+            actualizarPoemaCorto();
         }
 
-        // --- LÓGICA DEL BOTÓN NO (JUGUETÓN) ---
+        // --- 2. LÓGICA POEMAS LARGOS (Café, Flores, Luna) ---
+        const poemasLargos = [
+            "<span style='font-size:1.3em; color:#ff85a1; font-weight:bold; font-family:Dancing Script, cursive;'>El Café ☕</span><br><br>Como el primer sorbo en la mañana,<br>así llegaste tú, de forma inesperada.<br>Con un aroma que despierta mis sentidos,<br>y un calor suave que abriga mis latidos.<br><br>Quisiera que mis días comiencen con tu voz,<br>compartiendo una taza, el tiempo entre los dos.<br>El café me desvela y me da energía,<br>pero es tu compañía mi mayor alegría.",
+            
+            "<span style='font-size:1.3em; color:#ff85a1; font-weight:bold; font-family:Dancing Script, cursive;'>Las Flores 🌸</span><br><br>He visto primaveras y jardines florecer,<br>pero ninguna flor se compara a tu ser.<br>Tus ojos tienen el brillo del rocío,<br>y tu sonrisa es el sol que aleja el frío.<br><br>Si pudiera regalarte las flores de este mundo,<br>aún sería poco para este sentir profundo.<br>Eres el pétalo más suave, la rosa más hermosa,<br>la flor que en mi vida se vuelve preciosa.",
+            
+            "<span style='font-size:1.3em; color:#ff85a1; font-weight:bold; font-family:Dancing Script, cursive;'>La Luna 🌙</span><br><br>Cuando la noche cae y el cielo se oscurece,<br>la luna en lo alto majestuosa aparece.<br>Pero su luz plateada, tan pura y serena,<br>se queda pequeña cuando tú estás en escena.<br><br>He mirado la luna buscando algún consuelo,<br>y ahora veo tu rostro brillando en mi cielo.<br>Quisiera que la luna fuera nuestra fiel testigo,<br>de todas las historias que quiero vivir contigo."
+        ];
+
+        let indexPoemaLargo = 0;
+
+        function actualizarPoemaLargo() {
+            document.getElementById('poema-largo-text').innerHTML = poemasLargos[indexPoemaLargo];
+            document.getElementById('nav-info-largo').innerText = (indexPoemaLargo + 1) + "/3";
+
+            document.getElementById('nav-prev-largo').style.visibility = indexPoemaLargo === 0 ? 'hidden' : 'visible';
+            document.getElementById('nav-next-largo').innerText = indexPoemaLargo === 2 ? 'Guardar' : '➡️';
+        }
+
+        function navegarPoemasLargos(direccion) {
+            indexPoemaLargo += direccion;
+            if (indexPoemaLargo < 0) indexPoemaLargo = 0;
+            else if (indexPoemaLargo === 3) {
+                indexPoemaLargo = 0;
+                transicionPantalla('pantalla-poema-largo', 'pantalla-carta', true);
+            } else {
+                actualizarPoemaLargo();
+            }
+        }
+
+        function verPoemasLargos() {
+            transicionPantalla('pantalla-carta', 'pantalla-poema-largo', false);
+            indexPoemaLargo = 0;
+            actualizarPoemaLargo();
+        }
+
+        // --- LÓGICA DEL BOTÓN NO ---
         let contadorNo = 0;
         const btnNo = document.getElementById('btn-no');
         const mensajeNo = document.getElementById('mensaje-no-error');
@@ -492,12 +515,10 @@
             contadorNo++;
 
             if (contadorNo >= 5) {
-                // Desaparece al 5to intento
                 btnNo.style.display = "none";
                 mensajeNo.innerText = "¡Ups! El botón 'NO' desapareció. Es una señal del destino ✨";
                 mensajeNo.style.display = "block";
             } else {
-                // Salta por la pantalla
                 btnNo.style.position = 'fixed';
                 let maxX = window.innerWidth - btnNo.offsetWidth - 20;
                 let maxY = window.innerHeight - btnNo.offsetHeight - 20;
@@ -513,45 +534,50 @@
         // --- LÓGICA DEL BOTÓN SÍ ---
         function decirSi() {
             clearInterval(intervaloNieve);
-
             document.body.style.overflow = "hidden";
-
             for (let i = 0; i < 45; i++) {
                 setTimeout(createFlower, i * 35);
             }
-
             transicionPantalla('pantalla-carta', 'pantalla-exito');
         }
 
-        // --- LÓGICA DE LA FIRMA ANIMADA (EFECTO MÁQUINA DE ESCRIBIR) ---
+        // --- LÓGICA DE LA FIRMA INFINITA (Bucle) ---
         const textoFirma = "Con cariño, Lutz";
         let indiceFirma = 0;
         let firmaIniciada = false;
+        let escribiendoHaciaAdelante = true;
 
-        function escribirFirma() {
-            if (indiceFirma < textoFirma.length) {
-                document.getElementById("firma-animada").innerHTML += textoFirma.charAt(indiceFirma);
-                indiceFirma++;
-                // Velocidad de escritura (150 milisegundos por letra)
-                setTimeout(escribirFirma, 150); 
+        function bucleFirma() {
+            let elemento = document.getElementById("firma-animada");
+
+            if (escribiendoHaciaAdelante) {
+                if (indiceFirma < textoFirma.length) {
+                    elemento.innerHTML = textoFirma.substring(0, indiceFirma + 1);
+                    indiceFirma++;
+                    setTimeout(bucleFirma, 150); // Velocidad al escribir
+                } else {
+                    escribiendoHaciaAdelante = false;
+                    setTimeout(bucleFirma, 3500); // Pausa larga al terminar de escribir
+                }
             } else {
-                // Al terminar de escribir, quitar el cursor parpadeante después de 2 segundos
-                setTimeout(() => {
-                    document.getElementById("firma-animada").classList.remove('escribiendo');
-                }, 2000);
+                if (indiceFirma > 0) {
+                    indiceFirma--;
+                    elemento.innerHTML = textoFirma.substring(0, indiceFirma);
+                    setTimeout(bucleFirma, 80); // Velocidad rápida al borrar
+                } else {
+                    escribiendoHaciaAdelante = true;
+                    setTimeout(bucleFirma, 1000); // Pausa corta antes de volver a escribir
+                }
             }
         }
 
-        // El "Espía" que detecta cuando ella hace scroll hasta abajo
         let observadorFirma = new IntersectionObserver((entradas) => {
             if (entradas[0].isIntersecting && !firmaIniciada) {
-                firmaIniciada = true; // Para que no se vuelva a escribir si sube y baja
+                firmaIniciada = true; 
                 document.getElementById("firma-animada").classList.add('escribiendo');
-                
-                // Darle 1 segundito de pausa antes de escribir para más drama
-                setTimeout(escribirFirma, 1000);
+                setTimeout(bucleFirma, 1000); // Comienza el bucle
             }
-        }, { threshold: 0.5 }); // Se activa cuando al menos el 50% de la zona está visible
+        }, { threshold: 0.5 });
 
 
         // --- UTILIDADES ---
@@ -576,13 +602,11 @@
             }, 500);
         }
 
-        // AQUI SE CREAN LAS FLORES DE COLORES CON EL EMOJI
         function createFlower() {
             const container = document.getElementById('flower-rain');
             const flower = document.createElement('div');
             flower.classList.add('flower');
 
-            // Emoji de flor
             flower.innerHTML = '🌸';
 
             const colorRandom = Math.floor(Math.random() * 360);
@@ -590,9 +614,9 @@
 
             flower.style.left = Math.random() * 100 + 'vw';
             flower.style.animationDuration = Math.random() * 3 + 4 + 's';
-            flower.style.fontSize = Math.random() * 15 + 15 + 'px'; // Tamaño ajustable
+            flower.style.fontSize = Math.random() * 15 + 15 + 'px'; 
 
-            container.appendChild(flower); // Agrega la flor al contenedor
+            container.appendChild(flower);
 
             setTimeout(() => {
                 flower.remove();

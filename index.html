@@ -1,1 +1,185 @@
-<h1>Hola Adriana</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Adriana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rosa-fuerte: #ff85a1;
+            --rosa-suave: #fbb1bd;
+            --rosa-fondo: #ffe5ec;
+            --texto: #4a4e69;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--rosa-fondo);
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Lluvia de flores */
+        .flower-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .flower {
+            position: absolute;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/2926/2926331.png'); /* Icono de flor suave */
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10%) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Tarjeta de la carta */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            width: 90%;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 133, 161, 0.2);
+            position: relative;
+            z-index: 2;
+            border: 1px solid white;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 15px; bottom: 15px; left: 15px; right: 15px;
+            border: 1px solid var(--rosa-suave);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--rosa-fuerte);
+            font-size: 2.8em;
+            margin-bottom: 20px;
+        }
+
+        .letter-content {
+            font-family: 'Playfair Display', serif;
+            color: var(--texto);
+            line-height: 1.8;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .letter-content p {
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--rosa-fuerte);
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8em;
+            color: var(--rosa-fuerte);
+        }
+
+        .church-icon {
+            display: block;
+            margin: 20px auto;
+            width: 30px;
+            opacity: 0.5;
+        }
+
+        /* Ajustes para móviles */
+        @media (max-width: 480px) {
+            .card { padding: 30px 20px; }
+            h1 { font-size: 2.2em; }
+            .letter-content { font-size: 1em; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="flower-container" id="flower-rain"></div>
+
+    <div class="card">
+        <h1>Para Adriana</h1>
+        
+        <div class="letter-content">
+            <p>
+                A veces, las palabras habladas se quedan cortas ante la curiosidad que me despierta conocer a alguien como tú. Quise usar mi pasión por la programación para crear este pequeño espacio, tan único como lo que he empezado a notar en ti.
+            </p>
+            <p>
+                He guardado con mucho cariño los recuerdos de estos días: desde nuestra cena en <span class="highlight">Cocoroti</span> y ese sushi que no terminaste, hasta nuestra plática en el parque. Incluso el camino a <span class="highlight">San Carlos</span>, donde el silencio me permitió apreciar tu presencia, y ese momento en la orilla del mar donde, a pesar del pequeño accidente en mi dedo, solo me importaba que tú estuvieras bien.
+            </p>
+            <p>
+                Admiro tu disciplina por el crecimiento personal, tu amor por la lectura y esa paz que buscas cada vez que vas a la <span class="highlight">Hora Santa</span>. Me parece hermoso cómo disfrutas el ritual de alistarte y verte bonita, aunque para mí, ya tienes una luz natural que destaca por sí sola.
+            </p>
+            <p>
+                Sé que eres reservada, y respeto mucho ese espacio tuyo. No pretendo apresurar nada, solo quiero que sepas que me interesa de verdad quién eres, qué piensas y hacia dónde vas.
+            </p>
+        </div>
+
+        <div class="footer">
+            Con cariño, Lutz
+        </div>
+        
+        <img src="https://cdn-icons-png.flaticon.com/512/2554/2554030.png" class="church-icon" alt="detalle">
+    </div>
+
+    <script>
+        // Función para crear lluvia de flores
+        function createFlower() {
+            const container = document.getElementById('flower-rain');
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+            
+            // Posición aleatoria
+            const startX = Math.random() * window.innerWidth;
+            const size = Math.random() * (25 - 15) + 15; // Tamaño entre 15 y 25px
+            const duration = Math.random() * (7 - 4) + 4; // Duración entre 4 y 7 segundos
+            
+            flower.style.left = startX + 'px';
+            flower.style.width = size + 'px';
+            flower.style.height = size + 'px';
+            flower.style.animationDuration = duration + 's';
+            
+            container.appendChild(flower);
+
+            // Eliminar flor después de la animación
+            setTimeout(() => {
+                flower.remove();
+            }, duration * 1000);
+        }
+
+        // Crear una flor cada 300ms
+        setInterval(createFlower, 300);
+    </script>
+</body>
+</html>
